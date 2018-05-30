@@ -3,29 +3,29 @@ document.addEventListener("DOMContentLoaded", (event)=>{
     let week_of = document.getElementById("schedule_week_of")
 
     //Set the day
-    function getWeekOf(){
-        let today = new Date;
-        let weekNum = (function() {
-            var onejan = new Date(this.getFullYear(),0,1);
-            return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
-        }).call(today)
-        
-        return (function(week, year){
-            return new Date(year, 0, ((week-1)*7));
-        }(weekNum, today.getFullYear()));
-    }
-    week_of.innerHTML += `<br> ${getWeekOf().toLocaleDateString()}`
+    week_of.innerHTML += `<br> ${Time.prototype.getWeekOf().toLocaleDateString()}`
 
     //DYNAMICALLY ALTERING TABLE
     table_settings.addEventListener("change", (e) => {
+        let timeObj = new Time
         let start_time = document.getElementById("start_time").value
         let end_time = document.getElementById("end_time").value
-        console.log(start_time, end_time)
+        let error_msg = document.getElementById("table_error")
+        if (error_msg){
+            error_msg.remove()
+        }
 
-        console.log(end_time.value - start_time.value)
-    })
-    
-
-    
-    
+        if (timeObj.differenceInMinutes(start_time, end_time) < 0) {
+            start_time.innerHTML = "12:00 AM"
+            end_time.innerHTML = "12:00 AM"
+            let tableSettings = document.getElementById("table_settings")
+            tableSettings.innerHTML += 
+                `<div id="table_error" class="alert alert-danger">
+                <strong> ERROR </strong> Your start time must come before your end time.
+                </div>`
+        }
+        let table = document.querySelector(`body > div > div > main > div.table-responsive > table > tbody`)
+        table.innerHTML = ""
+        table.innerHTML += timeObj.customizeSchedule(start_time, end_time)
+    })    
 })
