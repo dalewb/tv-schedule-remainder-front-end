@@ -1,13 +1,17 @@
+//This function is called on the object.
 function render() {
   return $(`<li><a href=""><img src=${this.image.medium} /></a><p>${this.name}</p></li>`);
 }
 
 $(function() {
+  //This shows variable will be reset once the data has been successfully received.
   let shows = null;
+  //we fetch the shows from the Rails API
   fetch("http://api.tvmaze.com/shows")
   .then(response => response.json())
   .then(data => {shows = data}).then(appendListItems);
 
+  //create list items based on the returned data
   function appendListItems() {
     shows.forEach(function(showObj) {
       //const show = new Show(showObj.show.id, showObj.show.image.medium, showObj.show.name);
@@ -16,11 +20,10 @@ $(function() {
     });
   }
 
-  //fetch all favorite shows from the rails API and store it in a variable
-  //loop over it and convet them to objects.
-  //find the input field, listen for the keyboard event.
-  //If keyup event is triggered, delete all the child nodes and render with proper shows
-
+  //On keyup event, remove all the children of the #shows and get the input
+  //Using the input, check whether the input is a substring of the show name.
+  //If it is, then call the render method to make a list item and append it
+  //to the shows
   $("#show-search-field").on("keyup", function(event) {
     $("#shows").children("li").remove();
     const input = $("#show-search-field").val().toLowerCase();
@@ -33,4 +36,5 @@ $(function() {
     });
   });
 
+  localStorage.setItem("lastname", "smith");
 });
