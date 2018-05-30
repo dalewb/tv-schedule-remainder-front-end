@@ -1,5 +1,6 @@
 //This function is called on the object.
 function render() {
+  localStorage.clear();
   localStorage.setItem("showTitle", `${this.show.name}`);
   return $(`<li><a href="../pages/show-page.html"><img src=${this.show.image.medium} /></a><p>${this.show.name}</p></li>`);
 }
@@ -16,7 +17,6 @@ $(function() {
    // --Then we check to see whether the show exist in the Rails API,
    //    --If exists, then associate the user to the show.
    //    --If not, then add the show to the Rails API and associate the user.
-
 
   fetch("http://api.tvmaze.com/shows")
   .then(response => response.json())
