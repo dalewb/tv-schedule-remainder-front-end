@@ -1,5 +1,5 @@
 $(function() {
-  console.log(localStorage.getItem("lastname"));
+  console.log(localStorage.getItem("showTitle"));
   //Let us assume that Quantico was clicked in the search page
   //The information is going to come through the local storage in JSON format.
   //Let assume it came through like this:
@@ -45,10 +45,10 @@ $(function() {
 
   //On mouseenter, slide down all the list items under the unorderedList
   $("#seasons").on("mouseenter", "h3", function(event) {
-     $(`#Quantico-season-${this.id.split("-")[1]}-episodes`).slideToggle();
+     //$(`#Quantico-season-${this.id.split("-")[1]}-episodes`).slideToggle();
     // $("#Quantico-season-2-episodes").slideToggle();
-    // debugger;
-    // this.closest(".season").find("ul").slideToggle();
+     debugger;
+     this.closest(".season").find("ul").slideToggle();
   });
 
   // //On mouseleave, slide up all the list items under the unorderedList
