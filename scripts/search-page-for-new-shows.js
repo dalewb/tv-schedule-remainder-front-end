@@ -1,3 +1,4 @@
+// testing this commit
 //This function is called on the object.
 function render() {
   return $(`<li><a onmouseover="myFunc(this)" href="../pages/show-page.html"><img src=${this.show.image.medium} /><p>${this.show.name}</p></a></li>`);
