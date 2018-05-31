@@ -16,6 +16,4 @@ document.addEventListener("DOMContentLoaded", (event)=>{
         main_container.innerHTML = home_page_template
         loadHomePageJS()
     })
-
-
 })

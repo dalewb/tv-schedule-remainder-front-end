@@ -10,11 +10,7 @@ const search_page_for_new_shows_template = `
   </div>
 </div>
 
-<br>
-<a href="show-page.html">show-page</a> <br><br>
-<br>
-<button id="transfer">transfers</button>
-
+<br><br>
 <div class="album text-muted">
   <div class="container">
       <div class="row" id="search_results">

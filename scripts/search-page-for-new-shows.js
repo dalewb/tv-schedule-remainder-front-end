@@ -1,9 +1,15 @@
+// commit test no. 2
 //This function is called on the object.
-//function loadSearchJS(){
+function loadSearchJS(){
 
   function render() {
     // debugger;
-    return $(`<li><a onmouseover="myFunc(this)" href="../pages/show-page.html"><img src=${this.show.image.medium} /><p>${this.show.name}</p></a></li>`);
+    return $(`<div class="card">
+        <a onmouseover="myFunc(this)" href="../pages/show-page.html">
+          <img alt="Thumbnail [100%x280]" style="height: 280px; width: 100%; display: block;" src="${this.show.image.medium}" data-holder-rendered="true">
+            <p class="card-text">${this.show.name}.</p>
+        </a>
+      </div>`
     );
   }
     // <li><a onmouseover="myFunc(this)" href="../pages/show-page.html"><img src=${this.show.image.medium} /><p>${this.show.name}</p></a></li>
@@ -11,6 +17,7 @@
   function myFunc(obj) {
     localStorage.setItem("pageIcameFrom", "newShowPage");
     localStorage.setItem("showTitle", $(obj).children("p").text());
+
   }
 
   // $("#transfer").on("click", function() {
@@ -68,4 +75,4 @@
         }
       });
     })
-  //}
+  }
