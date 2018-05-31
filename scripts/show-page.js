@@ -96,7 +96,7 @@ function createEpisodeLists(data) {
   //I need to make an unorderedList for each season, id being season-1-episodes
   data.forEach(function(episodeObj) {
     const unorderedList = $(`#show-${showId}-season-${episodeObj.season}-episodes`);
-    const listItem = $(`<li id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}">${episodeObj.name} <button id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}-btn" onclick="addEventToBackend(this)">Add</button></li>`);
+    const listItem = $(`<li id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}">${episodeObj.name} ${episodeObj.}<button id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}-btn" onclick="addEventToBackend(this)">Add</button></li>`);
     unorderedList.append(listItem);
   });
 }
