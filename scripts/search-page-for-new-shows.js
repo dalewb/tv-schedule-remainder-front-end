@@ -1,10 +1,17 @@
 //This function is called on the object.
 function render() {
-  localStorage.clear();
-  localStorage.setItem("showTitle", `${this.show.name}`);
-  return $(`<li><a href="../pages/show-page.html"><img src=${this.show.image.medium} /></a><p>${this.show.name}</p></li>`);
+  return $(`<li><a onmouseover="myFunc(this)" href="../pages/show-page.html"><img src=${this.show.image.medium} /><p>${this.show.name}</p></a></li>`);
 }
 
+function myFunc(obj) {
+  localStorage.setItem("pageIcameFrom", "newShowPage");
+  localStorage.setItem("showTitle", $(obj).children("p").text());
+
+}
+
+// $("#transfer").on("click", function() {
+//   window.location.href = "../pages/show-page.html";
+// })
 $(function() {
   //This shows variable will be reset once the data has been successfully received.
   let shows = null;
