@@ -1,9 +1,7 @@
-document.addEventListener("DOMContentLoaded", (event)=>{
+function loadHomePageJS(){
+
     let table_settings = document.getElementById("table_settings")
     let week_of = document.getElementById("schedule_week_of")
-
-    //Set the day
-    week_of.innerHTML += `<br> ${Time.prototype.getWeekOf().toLocaleDateString()}`
 
     //DYNAMICALLY ALTERING TABLE
     table_settings.addEventListener("change", (e) => {
@@ -32,10 +30,4 @@ document.addEventListener("DOMContentLoaded", (event)=>{
             table.innerHTML += time_obj.customizeSchedule(start_time, end_time)
         }
     })
-
-    //RENDER SEARCH PAGE
-    let search_button = document.getElementById("search")
-    search_button.addEventListener("click", (e) => {
-        console.log("You've hit search button")
-    })
-})
+}
