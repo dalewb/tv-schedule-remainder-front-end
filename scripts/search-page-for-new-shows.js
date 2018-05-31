@@ -2,25 +2,35 @@ function loadSearchJS(){
 
   function render() {
     // debugger;
-    return $(`<div class="card" style="margin: 5px" >
-        <a onmouseover="myFunc(this)" href="../pages/show-page.html">
-          <img alt="Thumbnail [100%x280]" style="height: 280px; width: 100%; display: block;" src="${this.show.image.medium}" data-holder-rendered="true">
-            <h5 class="card-text text-center" style="color:#464040; padding:10px;">${this.show.name}</h5>
-        </a>
-      </div>`
+    return $(`
+    <div class="card" style="margin: 5px;">
+      <img class="img-fluid" alt="Thumbnail [100%x280]" style="height: 280px; width: 100%; display: block;" src="${this.show.image.medium}" data-holder-rendered="true">
+      <h5 class="card-text text-center" style="color:#464040; padding:10px;">${this.show.name}</h5>
+    </div>`
     );
   }
     // <li><a onmouseover="myFunc(this)" href="../pages/show-page.html"><img src=${this.show.image.medium} /><p>${this.show.name}</p></a></li>
   
-  function myFunc(obj) {
+  function myFunc() {
     localStorage.setItem("pageIcameFrom", "newShowPage");
-    localStorage.setItem("showTitle", $(obj).children("p").text());
+    localStorage.setItem("showTitle", this.innerText);
   }
   
   // $("#transfer").on("click", function() {
   //   window.location.href = "../pages/show-page.html";
   // })
   
+  $("#main_container > div.album.text-muted").click((event) =>{
+    if (event.target.parentElement.className === "card"){
+      myFunc.call(event.target.parentElement.children[1])
+      
+      let main_container = document.getElementById("main_container")
+      main_container.innerHTML = show_page_template
+      loadShowPageJS();
+    }
+  })
+
+
   $(function() {
     //This shows variable will be reset once the data has been successfully received.
     let shows = null;
@@ -89,6 +99,8 @@ function loadSearchJS(){
             </div>`;
             $("#main_container > div.album.text-muted").prepend(warning)
           }
+
+          $(".card").hover(console.log("on mouse"), console.log("out of mouse"))
         });
 
         function addTheShowsToDOM(shows) {
