@@ -183,11 +183,24 @@ function getEpisodeInformation(data, episodeNum, seasonNum) {
   const episode = data.filter(function(episodeObj) {
     return episodeObj.number === episodeNum && seasonNum === episodeObj.season;
   });
-  debugger;
+  //debugger;
   addEpisodeToBackend(episode[0], seasonNum);
 }
 
 function addEpisodeToBackend(episode, seasonNum) {
+  newTime = null;
+  if(Number.parseInt(episode.airtime.split(":")[0]) > 12) {
+     const newHour = Number.parseInt(episode.airtime.split(":")[0]) - 12;
+     const minute =  `${Number.parseInt(episode.airtime.split(":")[1])}0`;
+     const newMin = minute.split(3)[0];
+     newTime = `${newHour}:${newMin} PM`;
+  } else {
+    const newHour = Number.parseInt(episode.airtime.split(":")[0]);
+    const minute =  `${Number.parseInt(episode.airtime.split(":")[1])}0`;
+    const newMin = minute.split(3)[0];
+    newTime = `${newHour}:${newMin} AM`;
+  }
+
   const config = {
     method: "POST",
     headers: {
@@ -197,7 +210,7 @@ function addEpisodeToBackend(episode, seasonNum) {
       title: episode.name,
       description: episode.summary,
       img_url: episode.image,
-      view_time: episode.airtime,
+      view_time: newTime,
       season_id: seasonNum,
       release_date: episode.air_date
     })

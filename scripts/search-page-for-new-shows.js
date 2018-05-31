@@ -1,3 +1,5 @@
+// commit test no. 2
+//This function is called on the object.
 function loadSearchJS(){
 
   function render() {
@@ -15,7 +17,7 @@ function loadSearchJS(){
     localStorage.setItem("pageIcameFrom", "newShowPage");
     localStorage.setItem("showTitle", this.innerText);
   }
-  
+
   // $("#transfer").on("click", function() {
   //   window.location.href = "../pages/show-page.html";
   // })
@@ -44,43 +46,25 @@ function loadSearchJS(){
     //    --If exists, then associate the user to the show.
     //    --If not, then add the show to the Rails API and associate the user.
 
-    fetch("http://api.tvmaze.com/shows")
-    .then(response => response.json())
-    .then(data => {shows = data})//.then(appendListItems);
+      fetch("http://api.tvmaze.com/shows")
+      .then(response => response.json())
+      .then(data => {shows = data})//.then(appendListItems);
 
-    //create list items based on the returned data
-    function appendListItems() {
-      shows.forEach(function(showObj) {
-        //const show = new Show(showObj.show.id, showObj.show.image.medium, showObj.show.name);
-        const showCard = render.call(showObj);
-        $("#search_results").append(showCard);
-      });
-    }
+      //create list items based on the returned data
+      function appendListItems() {
+        shows.forEach(function(showObj) {
+          //const show = new Show(showObj.show.id, showObj.show.image.medium, showObj.show.name);
+          const showCard = render.call(showObj);
+          $("#search_results").append(showCard);
+        });
+      }
 
-    //On keyup event, remove all the children of the #shows and get the input
-    //Using the input, check whether the input is a substring of the show name.
-    //If it is, then call the render method to make a list item and append it
-    //to the shows
-    $("#show-search-btn").on("click", function(event) {
-      // debugger
-      if (document.getElementById("show-search-field").value === ""){
-        if ($("#search_error")){
-          $("#search_error").remove()
-        }
-        let error = document.createElement("div")
-        error.innerHTML =`
-        <div id="search_error" class="alert alert-danger">
-        <strong> ERROR </strong> Please input a title before searching
-        </div>`;
-        $("#main_container > div.album.text-muted").prepend(error)
-      } else {
-        
+      //On keyup event, remove all the children of the #shows and get the input
+      //Using the input, check whether the input is a substring of the show name.
+      //If it is, then call the render method to make a list item and append it
+      //to the shows
+      $("#show-search-btn").on("click", function(event) {
         $("#search_results").children().remove();
-        
-        if ($("search_warning") || $("#search_error")){
-          $("#search_error").remove()
-          $("#search_warning").remove()
-        }
 
         const input = $("#show-search-field").val().toLowerCase();
 
@@ -112,7 +96,6 @@ function loadSearchJS(){
             }
           });
         }
-      }
-    });
-  })
-}
+      });
+    })
+  }
