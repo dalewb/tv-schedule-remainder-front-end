@@ -1,5 +1,7 @@
+//LINE 166
+
+let showId = null;
 $(function() {
-  showId = null;
   showIdDuplicate = null;
   show = null;
   seasons = {};
@@ -18,7 +20,9 @@ $(function() {
     .then(data => {show = data[0]; getShowId(data);});
 
     function getShowId(data) {
+      //debugger;
       showId = data[0].show.id;
+      // debugger;
       showIdDuplicate = data[0].show.id;
       getSeasonsAndEpisodes(showId);
     }
@@ -33,7 +37,7 @@ $(function() {
     }
   }
 
-  $("#favorite-btn").on("click", function(event) {
+  $("#favorite-btn").on("click", (event) => {
     //MAKE A POST REQUEST TO the backend.
     $("#favorite-btn").prop('disabled', true);
     // fetch(`https://api.tvmaze.com/shows/${showId}/cast`)
@@ -55,7 +59,13 @@ $(function() {
     }
     fetch("http://localhost:3000/api/v1/shows", config)
     .then(response => response.json())
-    .then(data => {showId = data.id});
+    .then(data => {
+      //debugger
+      showId = data.id
+      console.log("changing showid");
+      console.log("showId is", showId);
+      console.log("-------");
+    });
   });
 
   //On mouseenter, slide down all the list items under the unorderedList
@@ -103,10 +113,14 @@ function addEventToBackend(obj) {
     //if it is, then just send the event to the backend
     //if it is not, then send both the event and season to the backend
     if(!seasons[season].isSeasonExistInTheBackend) {
+      console.log("inside conditional");
+      console.log("showId is", showId);
+      console.log("----");
       //get the season information and get the episode information and send those information
       //to the Rails API.
       //get the season information
-      fetch(`http://api.tvmaze.com/shows/${showId}/seasons`)
+      //debugger
+      fetch(`http://api.tvmaze.com/shows/${showIdDuplicate}/seasons`)
       .then(response => response.json())
       .then(data => getSeasonInformation(data, seasonNum, episodeNum))
       //.then(fetchEpisodes(episodeNum, seasons[`season${seasonNum}`].seasonId));
@@ -152,9 +166,9 @@ function addSeasonToBackend(season, seasonNum, episodeNum) {
 }
 
 function setSeasonId(episodeNum, seasonNum, seasonId) {
-  seasons[`season${seasonNum}`].isSeasonExistInTheBackend = true
+  seasons[`season${seasonNum}`].isSeasonExistInTheBackend = false;
   seasons[`season${seasonNum}`].seasonId = seasonId;
-  fetchEpisodes(episodeNum, seasons[`season${seasonNum}`].seasonId)
+  fetchEpisodes(episodeNum, seasonNum)
 }
 
 function fetchEpisodes(episodeNum, seasonNum) {
@@ -165,8 +179,9 @@ function fetchEpisodes(episodeNum, seasonNum) {
 }
 
 function getEpisodeInformation(data, episodeNum, seasonNum) {
+  //debugger;
   const episode = data.filter(function(episodeObj) {
-    return episodeObj.number === episodeNum && episodeObj.season === seasonNum;
+    return episodeObj.number === episodeNum && seasonNum === episodeObj.season;
   });
   debugger;
   addEpisodeToBackend(episode[0], seasonNum);
@@ -181,12 +196,12 @@ function addEpisodeToBackend(episode, seasonNum) {
     body: JSON.stringify({
       title: episode.name,
       description: episode.summary,
-      img_url: episode.image.medium,
+      img_url: episode.image,
       view_time: episode.airtime,
       season_id: seasonNum,
       release_date: episode.air_date
     })
   }
 
-  fetch("http://api.tvmaze.com/shows/2114/episodes", config);
+  fetch("http://localhost:3000/api/v1/episodes", config);
 }
