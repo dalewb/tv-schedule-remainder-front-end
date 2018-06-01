@@ -109,13 +109,13 @@ class Time {
         // return console.log(`rendered ${time.hh}:${time.mm} ${time.aa}`);
         return `<tr>
         <td class="text-right">${time.hh}:${time.mm} ${time.aa}</td>
-        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_1></td>
-        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_2></td>
-        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_3></td>
-        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_4></td>
-        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_5></td>
-        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_6></td>
-        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_7></td>
+        <td class="text-center" id=${time.hh}:${time.mm}_${time.aa}_1></td>
+        <td class="text-center" id=${time.hh}:${time.mm}_${time.aa}_2></td>
+        <td class="text-center" id=${time.hh}:${time.mm}_${time.aa}_3></td>
+        <td class="text-center" id=${time.hh}:${time.mm}_${time.aa}_4></td>
+        <td class="text-center" id=${time.hh}:${time.mm}_${time.aa}_5></td>
+        <td class="text-center" id=${time.hh}:${time.mm}_${time.aa}_6></td>
+        <td class="text-center" id=${time.hh}:${time.mm}_${time.aa}_7></td>
       </tr>`
     }
 }

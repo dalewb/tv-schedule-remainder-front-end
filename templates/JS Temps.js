@@ -11,7 +11,7 @@ const show_page_template = `
 
     </div>`
 
-    
+
 const search_page_for_new_shows_template = `
 <h2 class="text-center">Search by Title</h2>
 
