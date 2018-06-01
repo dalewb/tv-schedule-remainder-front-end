@@ -96,8 +96,15 @@ function createEpisodeLists(data) {
   //I need to make an unorderedList for each season, id being season-1-episodes
   data.forEach(function(episodeObj) {
     const unorderedList = $(`#show-${showId}-season-${episodeObj.season}-episodes`);
-    const listItem = $(`<li id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}">${episodeObj.name} ${episodeObj.airtime}<button id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}-btn" onclick="addEventToBackend(this)">Add</button></li>`);
+    const listItem = $(`<li id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}">${episodeObj.name} ${episodeObj.airtime}<button id="show-${showId}-season-${episodeObj.season}-episode-${episodeObj.number}-btn">Add</button></li>`);
     unorderedList.append(listItem);
+  });
+
+  const seasonsContainer = document.getElementById("seasons");
+  seasonsContainer.addEventListener("click", function(event) {
+    if(event.target.nodeName && event.target !== null) {
+      addEventToBackend(event.target);
+    }
   });
 }
 
@@ -137,6 +144,7 @@ function addEventToBackend(obj) {
 }
 
 function getSeasonInformation(data, seasonNum, episodeNum) {
+
   const season = data.filter(function(seasonObj) {
     return seasonObj.number === seasonNum;
   });
@@ -166,28 +174,28 @@ function addSeasonToBackend(season, seasonNum, episodeNum) {
 }
 
 function setSeasonId(episodeNum, seasonNum, seasonId) {
+  //console.log(season, seasonNum, episodeNum);
   seasons[`season${seasonNum}`].isSeasonExistInTheBackend = false;
   seasons[`season${seasonNum}`].seasonId = seasonId;
   fetchEpisodes(episodeNum, seasonNum)
 }
 
 function fetchEpisodes(episodeNum, seasonNum) {
-  //debugger;
   fetch(`http://api.tvmaze.com/shows/${showIdDuplicate}/episodes`)
   .then(response => response.json())
   .then(data => getEpisodeInformation(data, episodeNum, seasonNum));
 }
 
 function getEpisodeInformation(data, episodeNum, seasonNum) {
-  //debugger;
   const episode = data.filter(function(episodeObj) {
     return episodeObj.number === episodeNum && seasonNum === episodeObj.season;
   });
-  //debugger;
+
   addEpisodeToBackend(episode[0], seasonNum);
 }
 
 function addEpisodeToBackend(episode, seasonNum) {
+    // debugger;
   newTime = null;
   if(Number.parseInt(episode.airtime.split(":")[0]) > 12) {
      const newHour = Number.parseInt(episode.airtime.split(":")[0]) - 12;
@@ -216,7 +224,9 @@ function addEpisodeToBackend(episode, seasonNum) {
     })
   }
 
-  fetch("http://localhost:3000/api/v1/episodes", config);
+  fetch("http://localhost:3000/api/v1/episodes", config)
+  // .then(response => response.json())
+  // .then(data => {});
 }
 
 function sortAmAndPm(episodes) {
