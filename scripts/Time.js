@@ -7,7 +7,7 @@ class Time {
             var onejan = new Date(this.getFullYear(),0,1);
             return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
         }).call(today)
-        
+
         return (function(week, year){
             return new Date(year, 0, ((week-1)*7));
         }(weekNum, today.getFullYear()));
@@ -24,7 +24,7 @@ class Time {
     timeTo24HH(time){
         switch (time.aa) {
             case `AM`:
-                if (time.hh === `12`){ 
+                if (time.hh === `12`){
                     time.hh = `00`
                 } else {
                     time.hh = `${parseInt(time.hh)}`
@@ -42,7 +42,7 @@ class Time {
     }
 
     timeToAMPM(time){
-        if (parseInt(time.hh) > 12){ 
+        if (parseInt(time.hh) > 12){
             time.hh = `${parseInt(time.hh) - 12}`
             time.aa = `PM`
         } else if (parseInt(time.hh) === 0) {
@@ -83,7 +83,7 @@ class Time {
         let time = this.parseHHMMAA(start)
         let twentyFourHourTime
         let allRows = ""
-        
+
         for (let i=0; i < intervals + 1; i++){
             allRows += this.renderRows(time);
             twentyFourHourTime = this.timeTo24HH(time)
@@ -102,21 +102,20 @@ class Time {
         }
         return allRows
     }
-    
+
 // let date = new Date(2018, 12, 09, hour, min)
 // return date.toLocaleTimeString()
     renderRows(time){
         // return console.log(`rendered ${time.hh}:${time.mm} ${time.aa}`);
         return `<tr>
         <td class="text-right">${time.hh}:${time.mm} ${time.aa}</td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
-        <td class="text-right"></td>
+        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_1></td>
+        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_2></td>
+        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_3></td>
+        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_4></td>
+        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_5></td>
+        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_6></td>
+        <td class="text-right" id=${time.hh}:${time.mm}_${time.aa}_7></td>
       </tr>`
     }
 }
