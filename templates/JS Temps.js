@@ -1,3 +1,10 @@
+const myshows_page_template = `<h3>Search Your Shows</h3>
+<a href="show-page.html">show-page</a>
+<input id= "show-search-field" type="text" />
+<button id="show-search-btn">Search</button>
+<button id="transfer">transfers</button>
+<ul id="shows"></ul>`
+
 const show_page_template = `
 <h1 id="show-heading"></h1>
     <div id="seasons">

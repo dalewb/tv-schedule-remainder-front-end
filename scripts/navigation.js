@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", (event)=>{
         loadSearchJS()
     })
 
+    //MYSHOWS PAGE
+    let myshows_button = document.getElementById("myshows_button")
+    myshows_button.addEventListener("click", (e)=>{
+        main_container.innerHTML = myshows_page_template
+        loadMyShows()
+    })
+
     //RENDER HOME PAGE
     let home_button = document.getElementById("home_button")
     home_button.addEventListener("click", (e) => {
