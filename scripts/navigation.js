@@ -16,4 +16,7 @@ document.addEventListener("DOMContentLoaded", (event)=>{
         main_container.innerHTML = home_page_template
         loadHomePageJS()
     })
+
+    //RENDER SHOW PAGE FOR RESULTS IS IN SEARCH PAGE FOR NEW SHOWS.JS
+    
 })

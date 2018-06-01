@@ -1,5 +1,5 @@
 //LINE 166
-
+function loadShowPageJS(){
 let showId = null;
 $(function() {
   showIdDuplicate = null;
@@ -217,4 +217,5 @@ function addEpisodeToBackend(episode, seasonNum) {
   }
 
   fetch("http://localhost:3000/api/v1/episodes", config);
+}
 }
