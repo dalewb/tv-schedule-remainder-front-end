@@ -1,3 +1,10 @@
+const show_page_template = `
+<h1 id="show-heading"></h1>
+    <div id="seasons">
+
+    </div>`
+
+    
 const search_page_for_new_shows_template = `
 <h2 class="text-center">Search by Title</h2>
 

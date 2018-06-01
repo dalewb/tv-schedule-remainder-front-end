@@ -4,39 +4,48 @@ function loadSearchJS(){
 
   function render() {
     // debugger;
-    return $(`<div class="card">
-        <a onmouseover="myFunc(this)" href="../pages/show-page.html">
-          <img alt="Thumbnail [100%x280]" style="height: 280px; width: 100%; display: block;" src="${this.show.image.medium}" data-holder-rendered="true">
-            <p class="card-text">${this.show.name}.</p>
-        </a>
-      </div>`
+    return $(`
+    <div class="card" style="margin: 5px;">
+      <img class="img-fluid" alt="Thumbnail [100%x280]" style="height: 280px; width: 100%; display: block;" src="${this.show.image.medium}" data-holder-rendered="true">
+      <h5 class="card-text text-center" style="color:#464040; padding:10px;">${this.show.name}</h5>
+    </div>`
     );
   }
     // <li><a onmouseover="myFunc(this)" href="../pages/show-page.html"><img src=${this.show.image.medium} /><p>${this.show.name}</p></a></li>
 
-  function myFunc(obj) {
+  function myFunc() {
     localStorage.setItem("pageIcameFrom", "newShowPage");
-    localStorage.setItem("showTitle", $(obj).children("p").text());
-
+    localStorage.setItem("showTitle", this.innerText);
+    //localStorage.setItem("showTitle", $(obj).children("p").text());
   }
 
   // $("#transfer").on("click", function() {
   //   window.location.href = "../pages/show-page.html";
   // })
 
-    $(function() {
-      console.log("HELLO WORLD")
-      //This shows variable will be reset once the data has been successfully received.
-      let shows = null;
-      //we fetch the shows from the Rails API
-      //Show all the shows that belongs to the user in the show page
-      //user searches for shows, this will make a GET request to the remote API, even if the show is
-      //found in the Rails API. IT WILL SEARCH FOR THE SHOW FROM THE REMOTE API.
-      //User sees the results, clicks on the show image gets redirected to the show page
-      //If the user adds the show to the their list,
-      // --Then we check to see whether the show exist in the Rails API,
-      //    --If exists, then associate the user to the show.
-      //    --If not, then add the show to the Rails API and associate the user.
+  $("#main_container > div.album.text-muted").click((event) =>{
+    if (event.target.parentElement.className === "card"){
+      myFunc.call(event.target.parentElement.children[1])
+
+      let main_container = document.getElementById("main_container")
+      main_container.innerHTML = show_page_template
+      loadShowPageJS();
+    }
+  })
+
+
+  $(function() {
+    //This shows variable will be reset once the data has been successfully received.
+    let shows = null;
+    //we fetch the shows from the Rails API
+    //Show all the shows that belongs to the user in the show page
+    //user searches for shows, this will make a GET request to the remote API, even if the show is
+    //found in the Rails API. IT WILL SEARCH FOR THE SHOW FROM THE REMOTE API.
+    //User sees the results, clicks on the show image gets redirected to the show page
+    //If the user adds the show to the their list,
+    // --Then we check to see whether the show exist in the Rails API,
+    //    --If exists, then associate the user to the show.
+    //    --If not, then add the show to the Rails API and associate the user.
 
       fetch("http://api.tvmaze.com/shows")
       .then(response => response.json())
@@ -62,7 +71,22 @@ function loadSearchJS(){
 
         fetch(`http://api.tvmaze.com/search/shows?q=${input}`)
         .then(response => response.json())
-        .then(data => {addTheShowsToDOM(data)});
+        .then(data => {
+          addTheShowsToDOM(data)
+          if (!$("search_results").children()[0]){
+            if ($("search_warning") || $("#search_error")){
+              $("#search_error").remove()
+              $("#search_warning").remove()
+            }
+            let warning = document.createElement("div")
+            warning.innerHTML =`<div id="search_warning" class="alert alert-warning">
+            <strong> WARNING </strong> No results found.
+            </div>`;
+            $("#main_container > div.album.text-muted").prepend(warning)
+          }
+
+          $(".card").hover(console.log("on mouse"), console.log("out of mouse"))
+        });
 
         function addTheShowsToDOM(shows) {
           //debugger

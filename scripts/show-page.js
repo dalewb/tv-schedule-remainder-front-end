@@ -1,5 +1,5 @@
 //LINE 166
-
+function loadShowPageJS(){
 let showId = null;
 $(function() {
   showIdDuplicate = null;
@@ -272,3 +272,5 @@ function sortEpisodesByTime(episodes) {
 fetch("http://localhost:3000/api/v1/users/1/episodes")
   .then(res => res.json())
   .then(json => sortEpisodesByTime(json))
+
+}
