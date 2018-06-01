@@ -17,7 +17,6 @@ function loadSearchJS(){
   function myFunc(obj) {
     localStorage.setItem("pageIcameFrom", "newShowPage");
     localStorage.setItem("showTitle", $(obj).children("p").text());
-
   }
 
   // $("#transfer").on("click", function() {
