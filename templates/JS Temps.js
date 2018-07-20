@@ -163,7 +163,6 @@ const home_page_template = `          <h1 class="text-center">HomePage</h1>
         <th class="text-center">Thursday</th>
         <th class="text-center">Friday</th>
         <th class="text-center">Saturday</th>
-        <th class="text-center">Sunday</th>
       </tr>
     </thead>
     <tbody>
