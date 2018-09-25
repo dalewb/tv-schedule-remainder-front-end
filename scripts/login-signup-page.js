@@ -4,7 +4,7 @@ $(function() {
     $("form").find("button").prop("disabled", true);
     fetch("http://localhost:3000/api/v1/users")
     .then(response => response.json())
-    .then(data => {authenticate(data[1])});
+    .then(data => {authenticate(data[0])});
   });
 });
 

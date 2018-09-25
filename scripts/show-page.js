@@ -152,6 +152,10 @@ function getSeasonInformation(data, seasonNum, episodeNum) {
 }
 
 function addSeasonToBackend(season, seasonNum, episodeNum) {
+  console.log("Inside addSeasonToBackend, season is ", season);
+  console.log("Inside addSeasonToBackend, seasonNum is ", seasonNum);
+  console.log("Inside addSeasonToBackend, episodeNum is ", episodeNum);
+  console.log("-----------------");
   // let seasonIdNum = null;
   const config = {
     method: "POST",
@@ -180,6 +184,8 @@ function setSeasonId(episodeNum, seasonNum, seasonId) {
 }
 
 function fetchEpisodes(episodeNum, seasonNum) {
+  console.log("Inside fetchEpisodes, showIdDuplicate is ", showIdDuplicate);
+  console.log("---------------------");
   fetch(`http://api.tvmaze.com/shows/${showIdDuplicate}/episodes`)
   .then(response => response.json())
   .then(data => getEpisodeInformation(data, episodeNum, seasonNum));
@@ -194,7 +200,7 @@ function getEpisodeInformation(data, episodeNum, seasonNum) {
 }
 
 function addEpisodeToBackend(episode, seasonNum) {
-
+console.log("Inside addEpisodeToBackend, episode is ", episode);
   newTime = null;
   if(episode.airtime === "") {
     newTime = "12:00 AM";
@@ -203,12 +209,12 @@ function addEpisodeToBackend(episode, seasonNum) {
      const newHour = Number.parseInt(episode.airtime.split(":")[0]) - 12;
      const minute =  episode.airtime.split(":")[1];
      newTime = `${newHour}:${minute} PM`;
-     debugger
+     // debugger
   } else {
     const newHour = Number.parseInt(episode.airtime.split(":")[0]);
     const minute =  episode.airtime.split(":")[1];
     newTime = `${newHour}:${minute} AM`;
-    debugger
+    // debugger
   }
 
   const config = {
@@ -226,9 +232,9 @@ function addEpisodeToBackend(episode, seasonNum) {
     })
   }
 
-  fetch("http://localhost:3000/api/v1/episodes", config);
-  // .then(response => response.json())
-  // .then(data => {});
+  fetch("http://localhost:3000/api/v1/episodes", config)
+  .then(response => response.json())
+  .then(data => console.log("After addEpisodeToBackend fetch, response is ", data));
 }
 
 function sortAmAndPm(episodes) {
@@ -284,5 +290,10 @@ function sortEpisodesByTime(episodes) {
 fetch("http://localhost:3000/api/v1/users/1/episodes")
   .then(res => res.json())
   .then(json => sortEpisodesByTime(json))
+
+// fetch("http://localhost:3000/api/v1/episodes")
+//   .then(res => res.json())
+//   .then(json => sortEpisodesByTime(json))
+
 
 }

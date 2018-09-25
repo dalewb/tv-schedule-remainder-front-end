@@ -33,7 +33,7 @@ const search_page_for_new_shows_template = `
 </div>
 `
 
-const home_page_template = `          <h1 class="text-center">HomePage</h1>
+const home_page_template = `          <h1 class="text-center"></h1>
 
 <h2 id="schedule_week_of">My schedule for the week of:
 <br>${Time.prototype.getWeekOf().toLocaleDateString()} </h2>

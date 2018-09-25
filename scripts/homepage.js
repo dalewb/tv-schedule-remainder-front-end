@@ -87,7 +87,7 @@ function loadHomePageJS(){
 
           renderSortedEpisode(sortedAll)
         }
-
+        
         fetch("http://localhost:3000/api/v1/users/1/episodes")
           .then(res => res.json())
           .then(json => sortByAmAndPm(json))
