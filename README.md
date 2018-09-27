@@ -1,5 +1,4 @@
-
-# BingeWatch Schedule
+<h1 align='center'>BingeWatch Schedule</h1>
 
 <h1 align='center'>
   <img src='https://github.com/ahamedali95/Timey/blob/dalewb/images/bingewatch_login.png' alt='BingeWatch' width='700'>
